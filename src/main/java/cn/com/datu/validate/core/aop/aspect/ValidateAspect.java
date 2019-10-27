@@ -1,6 +1,7 @@
 package cn.com.datu.validate.core.aop.aspect;
 
 import cn.com.datu.validate.core.aop.annotation.ValidateGroup;
+import cn.com.datu.validate.core.common.Constant;
 import cn.com.datu.validate.core.reflect.ReflectHandler;
 import cn.com.datu.validate.core.validation.FieldValidation;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -56,13 +57,18 @@ public class ValidateAspect {
             //获取到参数
             args = proceedingJoinPoint.getArgs();
             annotation = (ValidateGroup) reflectHandler.getAnnotationByMethod(ValidateGroup.class, method);
+            //此处代码需要优化，携带校验信息返回
             validateFileds = fieldValidation.validateFiled(annotation.validateFields(), args);
         } catch (NoSuchMethodException e) {
+            //此处代码需要优化，携带校验信息返回，且完善日志
             validateFileds = false;
+            e.getMessage();
         } catch (IllegalAccessException e) {
             validateFileds = false;
-        } catch (InvocationTargetException e) {
+            e.getMessage();
+        } catch (Exception e) {
             validateFileds = false;
+            e.getMessage();
         } finally {
             if (validateFileds) {
                 LOGGER.info("验证通过");
@@ -72,7 +78,7 @@ public class ValidateAspect {
                     LOGGER.error("验证通过,方法执行失败");
                 }
             } else {
-                LOGGER.warn("参数校验未通过");
+                LOGGER.warn("参数校验未通过{}");
                 Class<?> returnType = method.getReturnType();
                 //可能还有其他情况，后续补充
                 if (returnType == String.class) {

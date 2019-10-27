@@ -14,6 +14,15 @@ public class TestEntity {
     private String id;
     private Date date;
     private List list;
+    private int age;
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
 
     public Date getDate() {
         return date;
