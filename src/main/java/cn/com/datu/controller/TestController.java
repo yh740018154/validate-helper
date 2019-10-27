@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @ValidateGroup(validateFields = {
-            @ValidateField(index = 0, notNull = true,maxLength = 3,fieldName = "id")
+            @ValidateField(index = 0, notNull = true,maxLength = 3)
     })
     @ResponseBody
     @RequestMapping("/hi")
-    public String validate(@RequestBody TestEntity testEntity) {
+    public String validate(TestEntity testEntity) {
 
         return "success";
     }

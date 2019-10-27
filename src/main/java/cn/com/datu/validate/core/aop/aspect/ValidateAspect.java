@@ -2,12 +2,13 @@ package cn.com.datu.validate.core.aop.aspect;
 
 import cn.com.datu.validate.core.aop.annotation.ValidateGroup;
 import cn.com.datu.validate.core.reflect.ReflectHandler;
-import cn.com.datu.validate.core.validation.FieldValidator;
+import cn.com.datu.validate.core.validation.FieldValidation;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.InvocationTargetException;
@@ -26,20 +27,20 @@ import java.lang.reflect.Method;
 public class ValidateAspect {
     private static final Logger LOGGER = LoggerFactory.getLogger(ValidateAspect.class);
 
-    private ReflectHandler<ValidateAspect> reflectHandler;
+    @Autowired
+    private ReflectHandler reflectHandler;
 
-    private FieldValidator fieldValidator;
+    @Autowired
+    private FieldValidation fieldValidation;
 
-    public ValidateAspect() {
-        this.reflectHandler = new ReflectHandler<ValidateAspect>();
-        this.fieldValidator = new FieldValidator();
-    }
 
     @Around("@annotation(cn.com.datu.validate.core.aop.annotation.ValidateGroup)")
     public Object validate(ProceedingJoinPoint proceedingJoinPoint) {
         //获取方法名
         String methodName = null;
+        //获取controller对象
         Object target = null;
+        //获取到改注解的方法
         Method method = null;
         Object[] args = null;
         ValidateGroup annotation = null;
@@ -55,13 +56,13 @@ public class ValidateAspect {
             //获取到参数
             args = proceedingJoinPoint.getArgs();
             annotation = (ValidateGroup) reflectHandler.getAnnotationByMethod(ValidateGroup.class, method);
-            validateFileds = fieldValidator.validateFiled(annotation.validateFields(), args);
+            validateFileds = fieldValidation.validateFiled(annotation.validateFields(), args);
         } catch (NoSuchMethodException e) {
-                validateFileds=false;
+            validateFileds = false;
         } catch (IllegalAccessException e) {
-            validateFileds=false;
+            validateFileds = false;
         } catch (InvocationTargetException e) {
-            validateFileds=false;
+            validateFileds = false;
         } finally {
             if (validateFileds) {
                 LOGGER.info("验证通过");
@@ -70,13 +71,13 @@ public class ValidateAspect {
                 } catch (Throwable throwable) {
                     LOGGER.error("验证通过,方法执行失败");
                 }
-            }else {
+            } else {
                 LOGGER.warn("参数校验未通过");
                 Class<?> returnType = method.getReturnType();
                 //可能还有其他情况，后续补充
-                if(returnType==String.class){
+                if (returnType == String.class) {
                     return "参数校验失败";
-                }else {
+                } else {
                     return null;
                 }
             }
