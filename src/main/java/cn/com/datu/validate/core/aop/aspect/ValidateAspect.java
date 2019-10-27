@@ -68,7 +68,7 @@ public class ValidateAspect {
                 try {
                     return proceedingJoinPoint.proceed();
                 } catch (Throwable throwable) {
-                    LOGGER.info("验证通过,方法执行失败");
+                    LOGGER.error("验证通过,方法执行失败");
                 }
             }else {
                 LOGGER.warn("参数校验未通过");
