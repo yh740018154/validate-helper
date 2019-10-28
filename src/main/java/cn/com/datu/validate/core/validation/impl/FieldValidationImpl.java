@@ -37,15 +37,12 @@ public class FieldValidationImpl implements FieldValidation {
                 arg = reflectHandler.getFieldByObjectAndFileName(args[validateField.index()], validateField.fieldName());
             }
             String msg= getResponseMsg(validateField, arg);
-            if (null!= getResponseMsg(validateField, arg)) {
+            if (null!= msg) {
                 responseMsg.setCode("500");
                 responseMsg.setMsg(msg);
             }
-
-            return responseMsg;
-
         }
-        return null;
+        return responseMsg;
     }
 
     private String getResponseMsg(ValidateField validateField, Object arg) {
