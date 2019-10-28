@@ -1,14 +1,14 @@
 package cn.com.datu.validate.core.reflect.impl;
 
 import cn.com.datu.validate.core.reflect.ReflectHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.List;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -20,6 +20,8 @@ import java.util.stream.Collectors;
  */
 @Component
 public class ReflectHandlerImpl<T> implements ReflectHandler {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ReflectHandlerImpl.class);
 
     @Override
     public Method getMethodByMethodName(Class clazz, String methodName) {
@@ -43,8 +45,8 @@ public class ReflectHandlerImpl<T> implements ReflectHandler {
         for (int i = 0; i <temp.length ; i++) {
             Method method = arg.getClass().getMethod(getGetterMethodByFieldName(temp[i]));
             arg=method.invoke(arg);
+            LOGGER.info("第{}次执行[{}]方法后，arg={}",i,method,arg);
         }
-
         return arg;
     }
     @Override

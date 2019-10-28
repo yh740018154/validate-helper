@@ -57,6 +57,7 @@ public class ValidateAspect {
             //获取到参数
             args = proceedingJoinPoint.getArgs();
             annotation = (ValidateGroup) reflectHandler.getAnnotationByMethod(ValidateGroup.class, method);
+            LOGGER.info("准备校验{}方法的参数...,\n 当前类是:{},\n 注解约束条件:{}", methodName, target, annotation);
             //校验：此处代码需要优化
             responseMsg = fieldValidation.validateFileds(annotation.validateFields(), args);
         } catch (Exception e) {
@@ -70,7 +71,7 @@ public class ValidateAspect {
                     LOGGER.error("验证通过,方法执行失败，异常信息为：{}", throwable.getMessage());
                 }
             } else {
-                LOGGER.error("参数校验未通过{}");
+                LOGGER.error("参数校验未通过,异常信息:{}",responseMsg.getMsg());
                 Class<?> returnType = method.getReturnType();
                 //可能还有其他情况，后续补充
                 if (returnType == String.class) {
