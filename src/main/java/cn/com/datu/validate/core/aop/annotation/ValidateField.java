@@ -68,13 +68,13 @@ public @interface ValidateField {
     int maxLength() default Constant.INT_DEFAULT_VALUE;
 
     /**
-     * 字段支持的最大值
+     * 字段支持的最小值
      * @return
      */
     int minValue() default Constant.INT_DEFAULT_VALUE;
 
     /**
-     * 字段支持的最小值
+     * 字段支持的最大值
      * @return
      */
     int maxValue() default Constant.INT_DEFAULT_VALUE;
