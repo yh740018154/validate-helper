@@ -41,7 +41,7 @@ public class TestController {
     })
     @ResponseBody
     @RequestMapping("/hi")
-    public String validate(@RequestBody TestEntity testEntity) {
+    public String validate(@RequestBody Map map) {
 
         return "success";
     }
