@@ -1,7 +1,7 @@
 package cn.com.datu.validate.core.aop.aspect;
 
 import cn.com.datu.validate.core.aop.annotation.ValidateGroup;
-import cn.com.datu.validate.core.common.Constant;
+import cn.com.datu.validate.core.common.ResponseMsg;
 import cn.com.datu.validate.core.reflect.ReflectHandler;
 import cn.com.datu.validate.core.validation.FieldValidation;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 
@@ -45,10 +44,11 @@ public class ValidateAspect {
         Method method = null;
         Object[] args = null;
         ValidateGroup annotation = null;
-        boolean validateFileds = false;
+        ResponseMsg responseMsg = null;
 
 
         try {
+            //获取方法名
             methodName = proceedingJoinPoint.getSignature().getName();
             //获取对象
             target = proceedingJoinPoint.getTarget();
@@ -57,34 +57,26 @@ public class ValidateAspect {
             //获取到参数
             args = proceedingJoinPoint.getArgs();
             annotation = (ValidateGroup) reflectHandler.getAnnotationByMethod(ValidateGroup.class, method);
-            //此处代码需要优化，携带校验信息返回
-            validateFileds = fieldValidation.validateFiled(annotation.validateFields(), args);
-        } catch (NoSuchMethodException e) {
-            //此处代码需要优化，携带校验信息返回，且完善日志
-            validateFileds = false;
-            e.getMessage();
-        } catch (IllegalAccessException e) {
-            validateFileds = false;
-            e.getMessage();
+            //校验：此处代码需要优化
+            responseMsg = fieldValidation.validateFileds(annotation.validateFields(), args);
         } catch (Exception e) {
-            validateFileds = false;
-            e.getMessage();
+            LOGGER.error("参数校验过程中发生错误，异常信息为：{}", e.getMessage());
         } finally {
-            if (validateFileds) {
+            if ("200".equals(responseMsg.getCode())) {
                 LOGGER.info("验证通过");
                 try {
                     return proceedingJoinPoint.proceed();
                 } catch (Throwable throwable) {
-                    LOGGER.error("验证通过,方法执行失败");
+                    LOGGER.error("验证通过,方法执行失败，异常信息为：{}", throwable.getMessage());
                 }
             } else {
-                LOGGER.warn("参数校验未通过{}");
+                LOGGER.error("参数校验未通过{}");
                 Class<?> returnType = method.getReturnType();
                 //可能还有其他情况，后续补充
                 if (returnType == String.class) {
-                    return "参数校验失败";
+                    return responseMsg.getMsg();
                 } else {
-                    return null;
+                    return responseMsg;
                 }
             }
         }

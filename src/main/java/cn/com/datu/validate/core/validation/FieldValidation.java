@@ -1,6 +1,7 @@
 package cn.com.datu.validate.core.validation;
 
 import cn.com.datu.validate.core.aop.annotation.ValidateField;
+import cn.com.datu.validate.core.common.ResponseMsg;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.InvocationTargetException;
@@ -13,5 +14,5 @@ public interface FieldValidation {
      * @param args
      * @return
      */
-    boolean validateFiled(ValidateField[] validateFields, Object[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException;
+    ResponseMsg validateFileds(ValidateField[] validateFields, Object[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException;
 }

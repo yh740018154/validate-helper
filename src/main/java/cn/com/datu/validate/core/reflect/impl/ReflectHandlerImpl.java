@@ -21,13 +21,14 @@ import java.util.stream.Collectors;
 @Component
 public class ReflectHandlerImpl<T> implements ReflectHandler {
 
+    @Override
     public Method getMethodByMethodName(Class clazz, String methodName) {
         Method[] methods = clazz.getDeclaredMethods();
         //学习使用lamda表达式获取元素
         return Arrays.stream(methods).filter(x -> x.getName().equals(methodName)).collect(Collectors.toList()).get(0);
     }
 
-
+    @Override
     public Annotation getAnnotationByMethod(Class clazz, Method method) {
         Annotation[] annotations = method.getAnnotations();
         return Arrays.stream(annotations).filter(x -> x.annotationType().equals(clazz)).collect(Collectors.toList()).get(0);
@@ -35,7 +36,7 @@ public class ReflectHandlerImpl<T> implements ReflectHandler {
     }
 
 
-
+    @Override
     public Object getFieldByObjectAndFileName(Object tarObject, String fileName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         String temp[]=fileName.split("\\.");
         Object arg=tarObject;
@@ -46,7 +47,7 @@ public class ReflectHandlerImpl<T> implements ReflectHandler {
 
         return arg;
     }
-
+    @Override
     public String getGetterMethodByFieldName(String fieldName) {
         return "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
 
