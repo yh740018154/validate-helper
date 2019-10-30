@@ -42,10 +42,12 @@ public class ValidateAspect {
         Object target = null;
         //获取到改注解的方法
         Method method = null;
+        //获取到入参列表
         Object[] args = null;
+        //参数校验注解类
         ValidateGroup annotation = null;
+        //返回的校验信息
         ResponseMsg responseMsg = null;
-
 
         try {
             //获取方法名
@@ -71,7 +73,7 @@ public class ValidateAspect {
                     LOGGER.error("验证通过,方法执行失败，异常信息为：{}", throwable.getMessage());
                 }
             } else {
-                LOGGER.error("参数校验未通过,异常信息:{}",responseMsg.getMsg());
+                LOGGER.error("参数校验未通过,异常信息:{}", responseMsg.getMsg());
                 Class<?> returnType = method.getReturnType();
                 //可能还有其他情况，后续补充
                 if (returnType == String.class) {

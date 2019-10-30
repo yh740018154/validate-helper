@@ -4,7 +4,9 @@ import cn.com.datu.validate.core.aop.annotation.ValidateField;
 import cn.com.datu.validate.core.common.Constant;
 import cn.com.datu.validate.core.common.ResponseMsg;
 import cn.com.datu.validate.core.reflect.ReflectHandler;
+import cn.com.datu.validate.core.validation.AbstractObjectValidator;
 import cn.com.datu.validate.core.validation.FieldValidation;
+import cn.com.datu.validate.core.validation.ValidatorFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +29,6 @@ public class FieldValidationImpl implements FieldValidation {
     @Autowired
     private ReflectHandler reflectHandler;
 
-
-    //此方法需要优化，lamda表达式。且不单单返回true，false，应该携带校验信息返回
     @Override
     public ResponseMsg validateFileds(ValidateField[] validateFields, Object[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 
@@ -69,7 +69,10 @@ public class FieldValidationImpl implements FieldValidation {
                 }
             }
 
+            AbstractObjectValidator validator = ValidatorFactory.getValidator(arg,validateField);
+            validator.service();
             //字符串校验
+/*
             if (validateField.maxLength() > 0) {
                 int length = ((String) arg).length();
                 if (((String) arg).length() > validateField.maxLength()) {
@@ -93,6 +96,7 @@ public class FieldValidationImpl implements FieldValidation {
                     }
                 }
             }
+*/
 
             //数字类型校验
             if (validateField.maxValue() > 0) {
