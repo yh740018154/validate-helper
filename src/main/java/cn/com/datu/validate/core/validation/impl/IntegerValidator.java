@@ -2,7 +2,7 @@ package cn.com.datu.validate.core.validation.impl;
 
 import cn.com.datu.validate.core.validation.AbstractObjectValidator;
 
-public class IntegerValidator<Integer> extends AbstractObjectValidator<Integer> {
+public class IntegerValidator extends AbstractObjectValidator {
 
 
     @Override
@@ -11,7 +11,7 @@ public class IntegerValidator<Integer> extends AbstractObjectValidator<Integer> 
     }
 
     @Override
-    protected Integer cast() {
-        return null;
+    protected void cast() {
+
     }
 }
