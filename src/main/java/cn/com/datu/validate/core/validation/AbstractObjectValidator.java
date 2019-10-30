@@ -2,7 +2,7 @@ package cn.com.datu.validate.core.validation;
 
 /***
  * 模板类
- * @param <T>
+ * @param
  */
 public abstract class AbstractObjectValidator {
 
