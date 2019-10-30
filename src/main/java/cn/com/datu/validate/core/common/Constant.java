@@ -15,9 +15,9 @@ public class Constant {
 
     public static final String IDENTITY_CARD_PATTERN = "^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{4}$";
 
-    public static final String INTEGER_CLASS_NAME = "java.lang.String";
+    public static final String STRING_CLASS_NAME = "java.lang.String";
 
-    public static final String STRING_CLASS_NAME = "java.lang.Integer";
+    public static final String INTEGER_CLASS_NAME = "java.lang.Integer";
 
 
 }

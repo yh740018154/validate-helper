@@ -1,4 +1,5 @@
 import cn.com.datu.ValidateApplication;
+import cn.com.datu.validate.core.validation.AbstractObjectValidator;
 import cn.com.datu.validate.core.validation.impl.StringValidator;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.util.TypeUtils;
@@ -19,7 +20,6 @@ public class TestAop {
 
     @Test
     public void test(){
-
 
         System.out.println("(String)\"aaa\" = " + (String) "aaa");
 

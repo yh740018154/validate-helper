@@ -42,8 +42,8 @@ public class FieldValidationImpl implements FieldValidation {
                 LOGGER.info("fieldName是{}", validateField.fieldName());
                 arg = reflectHandler.getFieldByObjectAndFileName(args[validateField.index()], validateField.fieldName());
             }
-            String msg= getResponseMsg(validateField, arg);
-            if (null!= msg) {
+            String msg = getResponseMsg(validateField, arg);
+            if (null != msg) {
                 LOGGER.warn("存在参数不符合规范{}", msg);
                 responseMsg.setCode("500");
                 stringBuffer.append(msg + ";");
@@ -58,20 +58,20 @@ public class FieldValidationImpl implements FieldValidation {
 
     private String getResponseMsg(ValidateField validateField, Object arg) {
 
-        LOGGER.info("开始校验参数{}，校验规则{}", arg,validateField);
+        LOGGER.info("开始校验参数{}，校验规则{}", arg, validateField);
         //对象校验
-        if (validateField.notNull()) {
+/*        if (validateField.notNull()) {
             if (Constant.OBJECT_DEFAULT_VALUE == arg) {
                 return "字段为空";
             } else {
                 if (Constant.OBJECT_DEFAULT_VALUE == arg) {
                     return null;
                 }
-            }
+            }*/
 
-            AbstractObjectValidator validator = ValidatorFactory.getValidator(arg,validateField);
-            validator.service();
-            //字符串校验
+        AbstractObjectValidator validator = ValidatorFactory.getValidator(arg, validateField);
+        return validator.service();
+        //字符串校验
 /*
             if (validateField.maxLength() > 0) {
                 int length = ((String) arg).length();
@@ -98,8 +98,8 @@ public class FieldValidationImpl implements FieldValidation {
             }
 */
 
-            //数字类型校验
-            if (validateField.maxValue() > 0) {
+        //数字类型校验
+/*            if (validateField.maxValue() > 0) {
                 if ((Integer) arg > validateField.maxValue()) {
                     return "数字["+arg+"]超过最大值,最大值是:"+validateField.maxValue();
                 }
@@ -111,8 +111,8 @@ public class FieldValidationImpl implements FieldValidation {
                 }
             }
             //....未完待续
-        }
-        return null;
+    *//*    }*//*
+        return null;*/
     }
 
 }

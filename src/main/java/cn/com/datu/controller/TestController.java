@@ -36,12 +36,11 @@ public class TestController {
      *  @ValidateField(index = 0, notNull = true,maxLength = 19,regexPattern = Constant.IDENTITY_CARD_PATTERN,fieldName = "testEntity.name")
      */
     @ValidateGroup(validateFields = {
-            @ValidateField(index = 0, notNull = true,maxLength = 19,regexPattern = Constant.IDENTITY_CARD_PATTERN,fieldName = "testEntity.id"),
-            @ValidateField(index = 0,notNull = true,maxValue = 10,fieldName = "age")
+            @ValidateField(index = 0, notNull = true,maxLength = 19,regexPattern = Constant.IDENTITY_CARD_PATTERN,fieldName = "id")
     })
     @ResponseBody
     @RequestMapping("/hi")
-    public String validate(@RequestBody TestEntity testEntity) {
+    public String validate(TestEntity testEntity) {
 
         return "success";
     }

@@ -7,14 +7,12 @@ import com.alibaba.fastjson.util.TypeUtils;
 
 public class StringValidator extends AbstractObjectValidator {
 
-    private ValidateField vf;
-    private Object object;
-    private String string;
+    protected String string;
 
     public StringValidator(ValidateField vf, Object object) {
-        this.vf = vf;
-        this.object = object;
+        super(vf, object);
     }
+
     @Override
     protected String validate() {
         if (vf.maxLength() > 0) {
