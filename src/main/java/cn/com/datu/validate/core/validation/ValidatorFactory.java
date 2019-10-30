@@ -44,8 +44,7 @@ public class ValidatorFactory {
 
     public static AbstractObjectValidator getValidator(Object object, ValidateField validateField) {
         if (Constant.STRING_CLASS_NAME.equals(object.getClass().getName())) {
-            String string = TypeUtils.castToString(object);
-            return new StringValidator(validateField);
+            return new StringValidator(validateField,object);
         }else if(Constant.INTEGER_CLASS_NAME.equals(object.getClass().getName())){
             return new IntegerValidator();
         }
