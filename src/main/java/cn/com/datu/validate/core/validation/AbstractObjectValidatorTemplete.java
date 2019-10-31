@@ -13,7 +13,7 @@ public abstract class AbstractObjectValidatorTemplete {
     protected Object object;
 
 
-    protected AbstractObjectValidatorTemplete(ValidateField vf, Object object) {
+    protected AbstractObjectValidatorTemplete(ValidateField vf, Object obj) {
         this.vf = vf;
         this.object = object;
     }
