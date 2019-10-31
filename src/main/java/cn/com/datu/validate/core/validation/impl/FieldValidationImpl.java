@@ -4,7 +4,7 @@ import cn.com.datu.validate.core.aop.annotation.ValidateField;
 import cn.com.datu.validate.core.common.Constant;
 import cn.com.datu.validate.core.common.ResponseMsg;
 import cn.com.datu.validate.core.reflect.ReflectHandler;
-import cn.com.datu.validate.core.validation.AbstractObjectValidator;
+import cn.com.datu.validate.core.validation.AbstractObjectValidatorTemplete;
 import cn.com.datu.validate.core.validation.FieldValidation;
 import cn.com.datu.validate.core.validation.ValidatorFactory;
 import org.slf4j.Logger;
@@ -30,18 +30,18 @@ public class FieldValidationImpl implements FieldValidation {
     private ReflectHandler reflectHandler;
 
     @Override
-    public ResponseMsg validateFileds(ValidateField[] validateFields, Object[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public ResponseMsg validateFileds(ValidateField[] vfs, Object[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         ResponseMsg responseMsg = new ResponseMsg("200", "success");
         StringBuffer stringBuffer = new StringBuffer("");
-        for (ValidateField validateField : validateFields) {
+        for (ValidateField vf : vfs) {
             Object arg = null;
-            if (Constant.STRING_DEFAULT_VALUE.equals(validateField.fieldName())) {
-                arg = args[validateField.index()];
+            if (Constant.STRING_DEFAULT_VALUE.equals(vf.fieldName())) {
+                arg = args[vf.index()];
             } else {
-                LOGGER.info("fieldName是{}", validateField.fieldName());
-                arg = reflectHandler.getFieldByObjectAndFileName(args[validateField.index()], validateField.fieldName());
+                LOGGER.info("fieldName是{}", vf.fieldName());
+                arg = reflectHandler.getFieldByObjectAndFileName(args[vf.index()], vf.fieldName());
             }
-            String msg = getResponseMsg(validateField, arg);
+            String msg = getResponseMsg(vf, arg);
             if (null != msg) {
                 LOGGER.warn("存在参数不符合规范{}", msg);
                 responseMsg.setCode("500");
@@ -54,9 +54,9 @@ public class FieldValidationImpl implements FieldValidation {
         return responseMsg;
     }
 
-    private String getResponseMsg(ValidateField validateField, Object arg) {
-        LOGGER.info("开始校验参数{}，校验规则{}", arg, validateField);
-        AbstractObjectValidator validator = ValidatorFactory.getValidator(arg, validateField);
+    private String getResponseMsg(ValidateField vf, Object arg) {
+        LOGGER.info("开始校验参数{}，校验规则{}", arg, vf);
+        AbstractObjectValidatorTemplete validator = ValidatorFactory.getValidator(arg, vf);
         return validator.service();
 
     }

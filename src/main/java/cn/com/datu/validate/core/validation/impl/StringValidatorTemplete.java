@@ -2,14 +2,14 @@ package cn.com.datu.validate.core.validation.impl;
 
 import cn.com.datu.validate.core.aop.annotation.ValidateField;
 import cn.com.datu.validate.core.common.Constant;
-import cn.com.datu.validate.core.validation.AbstractObjectValidator;
+import cn.com.datu.validate.core.validation.AbstractObjectValidatorTemplete;
 import com.alibaba.fastjson.util.TypeUtils;
 
-public class StringValidator extends AbstractObjectValidator {
+public class StringValidatorTemplete extends AbstractObjectValidatorTemplete {
 
     private String string;
 
-    public StringValidator(ValidateField vf, Object object) {
+    public StringValidatorTemplete(ValidateField vf, Object object) {
         super(vf, object);
     }
 

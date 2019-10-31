@@ -1,21 +1,21 @@
 package cn.com.datu.validate.core.validation.impl;
 
 import cn.com.datu.validate.core.aop.annotation.ValidateField;
-import cn.com.datu.validate.core.validation.AbstractObjectValidator;
+import cn.com.datu.validate.core.validation.AbstractObjectValidatorTemplete;
 import com.alibaba.fastjson.util.TypeUtils;
 
 /**
  * @author yangheng
- * @Classname IntValidator
+ * @Classname IntValidatorTemplete
  * @Description TODO
  * @Date 2019/10/31 8:29
  * @group smart video north
  */
-public class IntValidator extends AbstractObjectValidator {
+public class IntValidatorTemplete extends AbstractObjectValidatorTemplete {
 
     private int intValue;
 
-    public IntValidator(ValidateField vf, Object object) {
+    public IntValidatorTemplete(ValidateField vf, Object object) {
         super(vf, object);
     }
 

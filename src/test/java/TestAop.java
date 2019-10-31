@@ -1,15 +1,4 @@
-import cn.com.datu.ValidateApplication;
-import cn.com.datu.validate.core.aop.annotation.ValidateField;
-import cn.com.datu.validate.core.common.ResponseMsg;
-import cn.com.datu.validate.core.validation.AbstractObjectValidator;
-import cn.com.datu.validate.core.validation.FieldValidation;
-import cn.com.datu.validate.core.validation.impl.StringValidator;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.util.TypeUtils;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * @author yangheng

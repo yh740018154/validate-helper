@@ -7,13 +7,13 @@ import cn.com.datu.validate.core.common.Constant;
  * 模板类
  * @param
  */
-public abstract class AbstractObjectValidator {
+public abstract class AbstractObjectValidatorTemplete {
 
     protected ValidateField vf;
     protected Object object;
 
 
-    protected AbstractObjectValidator(ValidateField vf, Object object) {
+    protected AbstractObjectValidatorTemplete(ValidateField vf, Object object) {
         this.vf = vf;
         this.object = object;
     }
