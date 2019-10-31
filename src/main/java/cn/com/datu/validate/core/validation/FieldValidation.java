@@ -10,9 +10,9 @@ public interface FieldValidation {
 
     /**
      * 校验参数
-     * @param validateFields
+     * @param vf
      * @param args
      * @return
      */
-    ResponseMsg validateFileds(ValidateField[] validateFields, Object[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException;
+    ResponseMsg validateFileds(ValidateField[] vf, Object[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException;
 }

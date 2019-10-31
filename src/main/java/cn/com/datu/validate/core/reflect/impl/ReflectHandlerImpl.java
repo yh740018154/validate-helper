@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * @group smart video north
  */
 @Component
-public class ReflectHandlerImpl<T> implements ReflectHandler {
+public class ReflectHandlerImpl implements ReflectHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ReflectHandlerImpl.class);
 

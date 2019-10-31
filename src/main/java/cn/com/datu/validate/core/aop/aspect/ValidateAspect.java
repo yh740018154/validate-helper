@@ -35,6 +35,7 @@ public class ValidateAspect {
 
 
     @Around("@annotation(cn.com.datu.validate.core.aop.annotation.ValidateGroup)")
+
     public Object validate(ProceedingJoinPoint proceedingJoinPoint) {
         //获取方法名
         String methodName = null;
@@ -59,6 +60,7 @@ public class ValidateAspect {
             //获取到参数
             args = proceedingJoinPoint.getArgs();
             annotation = (ValidateGroup) reflectHandler.getAnnotationByMethod(ValidateGroup.class, method);
+
             LOGGER.info("准备校验{}方法的参数...,\n 当前类是:{},\n 注解约束条件:{}", methodName, target, annotation);
             //校验：此处代码需要优化
             responseMsg = fieldValidation.validateFileds(annotation.validateFields(), args);

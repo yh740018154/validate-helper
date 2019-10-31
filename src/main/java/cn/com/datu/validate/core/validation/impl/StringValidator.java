@@ -7,7 +7,7 @@ import com.alibaba.fastjson.util.TypeUtils;
 
 public class StringValidator extends AbstractObjectValidator {
 
-    protected String string;
+    private String string;
 
     public StringValidator(ValidateField vf, Object object) {
         super(vf, object);
