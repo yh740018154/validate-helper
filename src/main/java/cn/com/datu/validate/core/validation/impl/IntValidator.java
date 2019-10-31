@@ -6,16 +6,16 @@ import com.alibaba.fastjson.util.TypeUtils;
 
 /**
  * @author yangheng
- * @Classname IntValidatorTemplete
+ * @Classname IntValidator
  * @Description TODO
  * @Date 2019/10/31 8:29
  * @group smart video north
  */
-public class IntValidatorTemplete extends AbstractObjectValidatorTemplete {
+public class IntValidator extends AbstractObjectValidatorTemplete {
 
     private int intValue;
 
-    public IntValidatorTemplete(ValidateField vf, Object object) {
+    public IntValidator(ValidateField vf, Object object) {
         super(vf, object);
     }
 

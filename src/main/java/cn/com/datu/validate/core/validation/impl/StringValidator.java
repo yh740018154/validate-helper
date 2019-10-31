@@ -5,11 +5,11 @@ import cn.com.datu.validate.core.common.Constant;
 import cn.com.datu.validate.core.validation.AbstractObjectValidatorTemplete;
 import com.alibaba.fastjson.util.TypeUtils;
 
-public class StringValidatorTemplete extends AbstractObjectValidatorTemplete {
+public class StringValidator extends AbstractObjectValidatorTemplete {
 
     private String string;
 
-    public StringValidatorTemplete(ValidateField vf, Object object) {
+    public StringValidator(ValidateField vf, Object object) {
         super(vf, object);
     }
 
